@@ -27,11 +27,11 @@ const useStyles = makeStyles((theme) => ({
 const RegisterView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
   return (
     <Page
       className={classes.root}
-      title="Register"
+      title="Đăng ký"
     >
       <Box
         display="flex"
@@ -43,18 +43,16 @@ const RegisterView = () => {
           <Formik
             initialValues={{
               email: '',
-              firstName: '',
-              lastName: '',
+              name: '',
               password: '',
-              policy: false
+              phoneNumber: ''
             }}
             validationSchema={
               Yup.object().shape({
-                email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                firstName: Yup.string().max(255).required('First name is required'),
-                lastName: Yup.string().max(255).required('Last name is required'),
-                password: Yup.string().max(255).required('password is required'),
-                policy: Yup.boolean().oneOf([true], 'This field must be checked')
+                email: Yup.string().email('Email không hợp lệ. VD: email@domail.com').max(255).required('Email không được để trống'),
+                name: Yup.string().max(255),
+                phoneNumber: Yup.string().matches(phoneRegExp, 'Số điện thoại không hợp lệ'),
+                password: Yup.string().max(255).required('Mật khẩu không được để trống'),
               })
             }
             onSubmit={() => {
@@ -70,132 +68,93 @@ const RegisterView = () => {
               touched,
               values
             }) => (
-              <form onSubmit={handleSubmit}>
-                <Box mb={3}>
-                  <Typography
-                    color="textPrimary"
-                    variant="h2"
-                  >
-                    Create new account
+                <form onSubmit={handleSubmit}>
+                  <Box mb={3}>
+                    <Typography
+                      color="textPrimary"
+                      variant="h2"
+                    >
+                      Đăng ký tài khoản
                   </Typography>
-                  <Typography
-                    color="textSecondary"
-                    gutterBottom
-                    variant="body2"
-                  >
-                    Use your email to create new account
-                  </Typography>
-                </Box>
-                <TextField
-                  error={Boolean(touched.firstName && errors.firstName)}
-                  fullWidth
-                  helperText={touched.firstName && errors.firstName}
-                  label="First name"
-                  margin="normal"
-                  name="firstName"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.firstName}
-                  variant="outlined"
-                />
-                <TextField
-                  error={Boolean(touched.lastName && errors.lastName)}
-                  fullWidth
-                  helperText={touched.lastName && errors.lastName}
-                  label="Last name"
-                  margin="normal"
-                  name="lastName"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.lastName}
-                  variant="outlined"
-                />
-                <TextField
-                  error={Boolean(touched.email && errors.email)}
-                  fullWidth
-                  helperText={touched.email && errors.email}
-                  label="Email Address"
-                  margin="normal"
-                  name="email"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="email"
-                  value={values.email}
-                  variant="outlined"
-                />
-                <TextField
-                  error={Boolean(touched.password && errors.password)}
-                  fullWidth
-                  helperText={touched.password && errors.password}
-                  label="Password"
-                  margin="normal"
-                  name="password"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="password"
-                  value={values.password}
-                  variant="outlined"
-                />
-                <Box
-                  alignItems="center"
-                  display="flex"
-                  ml={-1}
-                >
-                  <Checkbox
-                    checked={values.policy}
-                    name="policy"
+                  </Box>
+                  <TextField
+                    error={Boolean(touched.email && errors.email)}
+                    fullWidth
+                    helperText={touched.email && errors.email}
+                    label="Email"
+                    margin="normal"
+                    name="email"
+                    onBlur={handleBlur}
                     onChange={handleChange}
+                    type="email"
+                    value={values.email}
+                    variant="outlined"
                   />
+                  <TextField
+                    error={Boolean(touched.password && errors.password)}
+                    fullWidth
+                    helperText={touched.password && errors.password}
+                    label="Mật khẩu"
+                    margin="normal"
+                    name="password"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    type="password"
+                    value={values.password}
+                    variant="outlined"
+                  />
+                  <TextField
+                    error={Boolean(touched.name && errors.name)}
+                    fullWidth
+                    helperText={touched.name && errors.name}
+                    label="Họ tên"
+                    margin="normal"
+                    name="firstName"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.firstName}
+                    variant="outlined"
+                  />
+                  <TextField
+                    error={Boolean(touched.phoneNumber && errors.phoneNumber)}
+                    fullWidth
+                    helperText={touched.phoneNumber && errors.phoneNumber}
+                    label="Số điện thoại"
+                    margin="normal"
+                    name="phoneNumber"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.phoneNumber}
+                    variant="outlined"
+                  />
+                  <Box my={2}>
+                    <Button
+                      color="primary"
+                      disabled={isSubmitting}
+                      fullWidth
+                      size="large"
+                      type="submit"
+                      variant="contained"
+                    >
+                      Đăng ký
+                  </Button>
+                  </Box>
                   <Typography
                     color="textSecondary"
                     variant="body1"
                   >
-                    I have read the
-                    {' '}
+                    Bạn đã có tài khoản?
+                  {' '}
                     <Link
-                      color="primary"
                       component={RouterLink}
-                      to="#"
-                      underline="always"
+                      to="/login"
                       variant="h6"
                     >
-                      Terms and Conditions
-                    </Link>
-                  </Typography>
-                </Box>
-                {Boolean(touched.policy && errors.policy) && (
-                  <FormHelperText error>
-                    {errors.policy}
-                  </FormHelperText>
-                )}
-                <Box my={2}>
-                  <Button
-                    color="primary"
-                    disabled={isSubmitting}
-                    fullWidth
-                    size="large"
-                    type="submit"
-                    variant="contained"
-                  >
-                    Sign up now
-                  </Button>
-                </Box>
-                <Typography
-                  color="textSecondary"
-                  variant="body1"
-                >
-                  Have an account?
-                  {' '}
-                  <Link
-                    component={RouterLink}
-                    to="/login"
-                    variant="h6"
-                  >
-                    Sign in
+                      Đăng nhập ngay
                   </Link>
-                </Typography>
-              </form>
-            )}
+                  </Typography>
+                </form>
+              )}
           </Formik>
         </Container>
       </Box>
