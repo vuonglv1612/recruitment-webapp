@@ -28,7 +28,7 @@ const NotFoundView = () => {
   return (
     <Page
       className={classes.root}
-      title="404"
+      title="Không tồn tại"
     >
       <Box
         display="flex"
@@ -42,19 +42,12 @@ const NotFoundView = () => {
             color="textPrimary"
             variant="h1"
           >
-            404: The page you are looking for isn’t here
+            Bạn đang truy cập một trang không tồn tại
           </Typography>
-          <Typography
-            align="center"
-            color="textPrimary"
-            variant="subtitle2"
-          >
-            You either tried some shady route or you came here by mistake.
-            Whichever it is, try using the navigation
-          </Typography>
+
           <Box textAlign="center">
             <img
-              alt="Under development"
+              alt="Không tồn tại"
               className={classes.image}
               src="/static/images/undraw_page_not_found_su7k.svg"
             />
