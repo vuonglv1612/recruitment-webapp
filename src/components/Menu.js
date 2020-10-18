@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import IconButton from '@material-ui/core/IconButton';
-import Link from '@material-ui/core/Link';
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         flexGrow: 1,
+    },
+    titleLink:{
+        color: theme.palette.text.logo
     },
     lightColor: {
         color: "#FFF",
@@ -32,7 +35,7 @@ export default function MainMenu() {
             <AppBar position="fixed">
                 <Toolbar>
                     <Typography variant="h3" className={classes.title}>
-                        <Link underline="none" href="/" color="inherit">
+                        <Link className={classes.titleLink} to="/">
                             EPU Jobs
                     </Link>
                     </Typography>

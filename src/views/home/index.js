@@ -13,6 +13,7 @@ const data = {
   jobs: [
     {
       title: "05 Java Dev (HTML, JavaScript)",
+      slug: "slug-1",
       salary: 1500,
       address: "106 Hoang Quoc Viet, Cau Giay, Ha Noi",
       description: "Tham gia phát triển các ứng dụng trên nền tảng Java cho khách hàng Nhật Bản. Tham gia đầy đủ các công đoạn của dự án từ tìm hiểu yêu cầu, phân tích, thiết kế, lập trình kiểm thử hoặc nghiên cứu công nghệ. Lập kế hoạch thực hiện công việc cá nhân/nhóm",
@@ -26,6 +27,7 @@ const data = {
     },
     {
       title: "DevOps Engineer - Attractive Salary ",
+      slug: "slug-2",
       salary: 1000,
       address: "15 Pham Hung, Nam Tu Liem, Ha Noi ",
       description: "Thực hiện các hoạt động liên quan tới Devops (set up CI, CD…) để build và deploy các phiên bản phần mềm lên production và chịu trách nhiệm trong suốt quá trình build, deploy và tìm hiểu và khắc phục sự cố nếu có.",
@@ -40,6 +42,7 @@ const data = {
     },
     {
       title: "PHP/ Nodejs Backend Developer Tham gia vào các dự án nước ngoài phần Backend và api. Làm việc theo sự phân công của Trưởng nhóm/Quản lý Tham gia vào các dự án nước ngoài phần Backend và api. Làm việc theo sự phân công của Trưởng nhóm/Quản lý",
+      slug: "slug-3",
       salary: 1000,
       address: "78 nguyễn hoàng, Nam Tu Liem, Ha Noi ",
       description: "Tham gia vào các dự án nước ngoài phần Backend và api. Làm việc theo sự phân công của Trưởng nhóm/Quản lý dự án, phối hợp giữa các nhóm để phát triển sản phẩm. Training các kiến thức mà mình đã làm hoặc đã tìm hiểu cho các thành viên khác trong team khi được yêu cầu.",
@@ -58,7 +61,7 @@ const data = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.background.dark,
+    // backgroundColor: theme.palette.background.dark,
     minHeight: 500,
     paddingBottom: theme.spacing(3),
     // paddingTop: theme.spacing(3),
@@ -75,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 10
   },
   jobCard: {
-    padding: 5
+    padding: 5,
   }
 }));
 
@@ -85,9 +88,9 @@ const Home = () => {
   return (
     <Page
       className={classes.root}
-      title="Home"
+      title="Trang chủ"
     >
-      <Container maxWidth="md" className={classes.content}>
+      <Container maxWidth="lg" className={classes.content}>
         <Grid
           container
           spacing={3}

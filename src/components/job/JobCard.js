@@ -8,11 +8,15 @@ import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import LinesEllipsis from 'react-lines-ellipsis'
+import { Link } from "react-router-dom";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
-    padding: 10
+    padding: 10,
+    // borderBottom: "0.5px solid gray",
+    // borderTop: "1px solid gray",
+    backgroundColor: theme.palette.background.light
   },
   bullet: {
     display: 'inline-block',
@@ -23,10 +27,19 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     marginBottom: 10,
   },
-  pos: {
-    marginBottom: 5,
+  titileLink: {
+    color: theme.palette.text.secondary
   },
-});
+  pos: {
+    marginBottom: 5
+  },
+  tag: {
+    backgroundColor: theme.palette.text.highlight
+  },
+  link: {
+    color: "#FFF"
+  }
+}));
 
 export default function JobCard({ job }) {
   const classes = useStyles();
@@ -35,7 +48,7 @@ export default function JobCard({ job }) {
     <Card className={classes.root}>
       <CardContent>
       <Typography variant="h3" className={classes.title} color="textSecondary" gutterBottom>
-      <LinesEllipsis text={"📢 " + job.title} maxLine='1' ellipsis='...' trimRight basedOn='letters'/>
+      <Link className={classes.titileLink} to={"/jobs/" + job.slug} key={job.slug}><LinesEllipsis text={"📢 " + job.title} maxLine='1' ellipsis='...' trimRight basedOn='letters'/></Link>
         </Typography>
       
         <Typography variant="h5" component="h2">💲 {job.salary}
@@ -47,13 +60,13 @@ export default function JobCard({ job }) {
         <Box component="span">
           {
             job.tags.map((tag) => {
-              return <Chip style={{marginLeft: 5}} label={tag}/>
+              return <Chip className={classes.tag} style={{marginLeft: 5}} label={tag}/>
             })
           }
         </Box>
       </CardContent>
       <CardActions>
-        <Button variant="contained" color="secondary" size="small">Xem chi tiết</Button>
+        <Button variant="contained" color="secondary" size="small"><Link className={classes.link} to={"/jobs/" + job.slug} key={job.slug}>Xem chi tiết</Link></Button>
       </CardActions>
     </Card>
   );
