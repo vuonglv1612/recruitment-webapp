@@ -1,12 +1,11 @@
 import React from 'react';
+import { Typography, Box } from '@material-ui/core';
 
-const Logo = (props) => {
+const Logo = () => {
   return (
-    <img
-      alt="Logo"
-      src="/static/logo.svg"
-      {...props}
-    />
+    <Box color="white" style={{ textTransform: 'uppercase' }} clone>
+      <Typography variant="h3">EPU IT JOBS</Typography>
+    </Box>
   );
 };
 
