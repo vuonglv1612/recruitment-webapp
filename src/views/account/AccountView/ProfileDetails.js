@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
-  Box,
-  Button,
   Card,
   CardContent,
   CardHeader,
@@ -20,7 +18,7 @@ const useStyles = makeStyles(() => ({
 
 const ProfileDetails = ({ className, ...rest }) => {
   const classes = useStyles();
-  const [values, setValues] = useState({
+  const [values] = useState({
     name: 'Lê Văn Vương',
     email: 'it.vuonglv@gmail.com',
     phone: '',
