@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import LinesEllipsis from 'react-lines-ellipsis'
 import { Link } from "react-router-dom";
+import ReactMarkdown from 'react-markdown'
 import { useParams } from "react-router-dom";
 import { Container, Grid, CardMedia, Divider } from '@material-ui/core';
 
@@ -19,7 +20,9 @@ const data = {
       slug: "slug-1",
       salary: 1500,
       address: "106 Hoang Quoc Viet, Cau Giay, Ha Noi",
-      description: "Tham gia phát triển các ứng dụng trên nền tảng Java cho khách hàng Nhật Bản. Tham gia đầy đủ các công đoạn của dự án từ tìm hiểu yêu cầu, phân tích, thiết kế, lập trình kiểm thử hoặc nghiên cứu công nghệ. Lập kế hoạch thực hiện công việc cá nhân/nhóm",
+      description: "# Hello, *world*!\n \
+## Tham gia phát triển các ứng dụng trên nền tảng Java cho khách hàng Nhật Bản. \n \
+Tham gia đầy đủ các công đoạn của dự án từ tìm hiểu yêu cầu, phân tích, thiết kế, lập trình kiểm thử hoặc nghiên cứu công nghệ. Lập kế hoạch thực hiện công việc cá nhân/nhóm",
       is_open: true,
       tags: [
         "JavaScript ",
@@ -65,10 +68,10 @@ const data = {
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
-    padding: 10,
+    padding: 10
     // borderBottom: "0.5px solid gray",
     // borderTop: "1px solid gray",
-    backgroundColor: theme.palette.background.light
+    // backgroundColor: theme.palette.background.light
   },
   title: {
     fontWeight: "bold",
@@ -94,7 +97,6 @@ const useStyles = makeStyles((theme) => ({
   },
   companyBox: {
     backgroundColor: theme.palette.background.light,
-    minHeight: "60vh"
   },
   companyImage: {
     height: 200
@@ -107,7 +109,7 @@ export default function JobDetail(props) {
   console.log("SLUG:" + slug)
   const job = findJobBySlug(slug)
   return (
-    <Container>
+    <Container className={classes.root}>
       <Grid
         container
         spacing={3}
@@ -160,7 +162,7 @@ export default function JobDetail(props) {
               </Typography>
               <Divider />
               <Typography className={classes.description} variant="body2" component="p">
-                <LinesEllipsis text={job.description} maxLine='2' ellipsis='...' trimRight basedOn='letters' /></Typography>
+              <ReactMarkdown>{job.description}</ReactMarkdown></Typography>
             </CardContent>
             <CardActions>
               <Button variant="contained" color="secondary" size="small"><Link className={classes.applyButton} to={"/jobs/" + job.slug} key={job.slug}>Ứng tuyển</Link></Button>
