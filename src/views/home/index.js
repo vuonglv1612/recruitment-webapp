@@ -4,7 +4,6 @@ import {
   Grid,
   makeStyles,
   Typography,
-  Divider
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import JobCard from '../../components/job/JobCard';
