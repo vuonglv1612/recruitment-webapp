@@ -2,6 +2,13 @@ import * as types from 'src/redux/action_types';
 import axios from 'axios';
 import * as CONSTANTS from 'src/constants/login';
 
+export function loginReset() {
+    return {
+        type: types.LOGIN_RESET
+    }
+}
+
+
 export function loginRequest() {
     return {
         type: types.LOGIN_REQUEST

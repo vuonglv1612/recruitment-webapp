@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate, Link} from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -12,8 +12,10 @@ import {
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import { connect } from "react-redux";
-import { login } from 'src/redux/actions/auth';
+import { login, loginReset } from 'src/redux/actions/auth';
 import Loader from 'src/components/Loader';
+import Notification from 'src/components/Notification'
+import * as CONSTANTS from 'src/constants/login'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,10 +30,12 @@ const LoginView = ({ authState, dispatch }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const identities = authState.identities
-  console.log(identities);
+  console.log(authState)
   useEffect(() => {
     if(identities?.logged_on){
       navigate('/', { replace: true });
+    }else{
+      dispatch(loginReset())
     }
   })
   return (
@@ -40,6 +44,8 @@ const LoginView = ({ authState, dispatch }) => {
       title="Đăng nhập"
     >
       { authState.loginReqesting? <Loader/>: null }
+      { authState?.error && authState?.loginDone ? <Notification message={authState?.errorMessage.replace(/^"+|"+$/g, '')} notiType="error"/> : null}
+      { !authState?.error && authState?.loginDone ? <Notification message={CONSTANTS.MESSAGES["login_success"]} notiType="success"/> : null}
       <Box
         display="flex"
         flexDirection="column"
@@ -57,7 +63,7 @@ const LoginView = ({ authState, dispatch }) => {
               password: Yup.string().max(255).required('Mật khẩu không được để trống')
             })}
             onSubmit={(values, {setSubmitting}) => {
-              setSubmitting(identities.logged)
+              setSubmitting(identities.logged_on)
               dispatch(login(values.email.trim().toLowerCase(), values.password));
             }}
           >

@@ -20,6 +20,9 @@ const initialState = {
 
 export default function authReducer(state = initialState, action) {
     switch (action.type) {
+        case types.LOGIN_RESET:
+            console.log("LOGIN_RESET")
+            return initialState
         case types.LOGIN_REQUEST:
             console.log("LOGIN_REQUEST")
             return {
