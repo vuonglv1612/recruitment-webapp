@@ -23,7 +23,7 @@ const Account = ({ authState }) => {
   const classes = useStyles();
   const navigation = useNavigate()
   useEffect(() => {
-    if(authState?.identities?.logged_on){
+    if(!authState?.identities?.logged_on){
       navigation("/", { replace: true })
     }
   })

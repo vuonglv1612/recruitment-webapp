@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -6,7 +6,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import IconButton from '@material-ui/core/IconButton';
-import { Link } from "react-router-dom";
+import PersonIcon from '@material-ui/icons/Person';
+import Button from '@material-ui/core/Button';
+import { Link, useNavigate } from "react-router-dom";
 import { logoutAction } from 'src/redux/actions/auth'
 import { connect } from "react-redux";
 
@@ -17,10 +19,11 @@ const useStyles = makeStyles((theme) => ({
     },
     menuButton: {
         marginRight: theme.spacing(2),
-        textTransform: "uppercase"
+        // textTransform: "uppercase"
     },
     menuLink: {
-        color: theme.palette.text.logo
+        color: theme.palette.text.logo,
+        textTransform: "none"
     },
     title: {
         flexGrow: 1,
@@ -48,13 +51,17 @@ function PublicMenu() {
     );
 }
 
-function LoggedOnMenu({ dispatch }) {
+function LoggedOnMenu({ identities, dispatch }) {
+    const navigation = useNavigate()
     const classes = useStyles();
     return (
         <>
-            <Typography variant="h5" className={classes.menuButton}>
-                <Link className={classes.menuLink} to="/account">Cá nhân</Link>
-            </Typography>
+            <Button
+                className={classes.menuLink}
+                color="inherit"
+                startIcon={<PersonIcon />}
+                onClick={() => {navigation("/account")}}
+            >{identities.name}</Button>
             <IconButton color="inherit" aria-label="delete" onClick={() => dispatch(logoutAction())}>
                 <ExitToAppIcon />
             </IconButton>
@@ -77,7 +84,7 @@ function MainMenu({ authState, dispatch }) {
                     </Link>
                     </Typography>
                     {identities.logged_on ? null : <PublicMenu />}
-                    {identities.logged_on ? <LoggedOnMenu dispatch={dispatch}/> : null}
+                    {identities.logged_on ? <LoggedOnMenu identities={authState.identities} dispatch={dispatch} /> : null}
                 </Toolbar>
             </AppBar>
         </div>
