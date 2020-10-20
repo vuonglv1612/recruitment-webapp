@@ -15,7 +15,9 @@ const data = {
       slug: "slug-1",
       salary: 1500,
       address: "106 Hoang Quoc Viet, Cau Giay, Ha Noi",
-      description: "Tham gia phát triển các ứng dụng trên nền tảng Java cho khách hàng Nhật Bản. Tham gia đầy đủ các công đoạn của dự án từ tìm hiểu yêu cầu, phân tích, thiết kế, lập trình kiểm thử hoặc nghiên cứu công nghệ. Lập kế hoạch thực hiện công việc cá nhân/nhóm",
+      description: "# Hello, *world*!\n \
+## Tham gia phát triển các ứng dụng trên nền tảng Java cho khách hàng Nhật Bản. \n \
+Tham gia đầy đủ các công đoạn của dự án từ tìm hiểu yêu cầu, phân tích, thiết kế, lập trình kiểm thử hoặc nghiên cứu công nghệ. Lập kế hoạch thực hiện công việc cá nhân/nhóm",
       is_open: true,
       tags: [
         "JavaScript ",

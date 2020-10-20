@@ -10,6 +10,8 @@ import Box from '@material-ui/core/Box';
 import LinesEllipsis from 'react-lines-ellipsis'
 import { Link } from "react-router-dom";
 
+const removeMd = require('remove-markdown');
+
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
@@ -56,7 +58,7 @@ export default function JobCard({ job }) {
         <Typography className={classes.pos} color="textSecondary"><LinesEllipsis text={"🏠 " + job.address} maxLine='1' ellipsis='...' trimRight basedOn='letters'/>
         </Typography>
         <Typography className={classes.pos} variant="body2" component="p">
-        <LinesEllipsis text={job.description} maxLine='2' ellipsis='...' trimRight basedOn='letters'/></Typography>
+        <LinesEllipsis text={removeMd(job.description)} maxLine='2' ellipsis='...' trimRight basedOn='letters'/></Typography>
         <Box component="span">
           {
             job.tags.map((tag) => {

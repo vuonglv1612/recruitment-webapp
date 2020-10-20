@@ -82,14 +82,18 @@ const useStyles = makeStyles((theme) => ({
   },
   description: {
     marginTop: 15,
-    fontSize: 20
+    fontSize: 18
   },
   tag: {
     backgroundColor: theme.palette.text.highlight
   },
   applyButton: {
     color: "#FFF",
-    width: "100%"
+    width: "100%",
+    backgroundColor: "red"
+  },
+  applyButtonCaption: {
+    color: "#FFFFFF"
   },
   headerBanner: {
     height: "30vh",
@@ -165,7 +169,7 @@ export default function JobDetail(props) {
               <ReactMarkdown>{job.description}</ReactMarkdown></Typography>
             </CardContent>
             <CardActions>
-              <Button variant="contained" color="secondary" size="small"><Link className={classes.applyButton} to={"/jobs/" + job.slug} key={job.slug}>Ứng tuyển</Link></Button>
+              <Button className={classes.applyButton} variant="contained" size="small"><Link className={classes.applyButtonCaption} to={"/jobs/" + job.slug} key={job.slug}>Ứng tuyển</Link></Button>
             </CardActions>
           </Card>
         </Grid>
