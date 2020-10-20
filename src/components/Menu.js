@@ -30,10 +30,37 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function MainMenu(props) {
-    console.log(props)
+
+function PublicMenu() {
+    const classes = useStyles();
+    return (
+        <>
+            <Typography variant="h5" className={classes.menuButton}>
+                <Link className={classes.menuLink} to="/login">Đăng nhập</Link>
+            </Typography>
+            <Typography variant="h5" className={classes.menuButton}>
+                <Link className={classes.menuLink} to="/register">Đăng ký</Link>
+            </Typography>
+        </>
+    );
+}
+
+function LoggedOnMenu() {
+    const classes = useStyles();
+    return (
+        <>
+            <Typography variant="h5" className={classes.menuButton}>
+                <Link className={classes.menuLink} to="/account">Cá nhân</Link>
+            </Typography>
+        </>
+    );
+}
+
+
+function MainMenu({ authState }) {
     const classes = useStyles();
     const classnames = clsx(classes.root, classes.lightColor)
+    const identities = authState.identities
     return (
         <div className={classnames}>
             <AppBar position="fixed">
@@ -43,12 +70,8 @@ function MainMenu(props) {
                             EPU Jobs
                     </Link>
                     </Typography>
-                    <Typography variant="h5" className={classes.menuButton}>
-                        <Link className={classes.menuLink} to="/login">Đăng nhập</Link>
-                    </Typography>
-                    <Typography variant="h5" className={classes.menuButton}>
-                        <Link className={classes.menuLink} to="/register">Đăng ký</Link>
-                    </Typography>
+                {identities.logged_on ? null: <PublicMenu />}
+                {identities.logged_on ? <LoggedOnMenu /> : null}
                 </Toolbar>
             </AppBar>
         </div>
@@ -58,8 +81,8 @@ function MainMenu(props) {
 
 function mapStateToProps(state) {
     return {
-      state: state,
+        authState: state.authState,
     };
-  }
+}
 
 export default connect(mapStateToProps)(MainMenu);
