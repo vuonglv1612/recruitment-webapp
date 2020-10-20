@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import * as Yup from 'yup';
+import axios from 'axios';
 import { Formik } from 'formik';
 import {
   Box,
@@ -13,10 +14,39 @@ import {
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Loader from 'src/components/Loader';
-import { connect } from "react-redux";
-import { signup } from 'src/redux/actions/signup'
-import Notification from 'src/components/Notification'
 import * as CONSTANTS from 'src/constants/signup'
+import { useSnackbar } from 'notistack';
+
+
+function handleErrorMessage(err) {
+  console.log(err.response)
+  let message = CONSTANTS.status_message_mapping[err.response.status]
+  console.log(message)
+  if (!message) {
+    message = err.response.data.detail
+  }
+  console.log(message)
+  return message
+}
+
+
+function signup(setSignupSuccess, setLoading, setError, info) {
+  setLoading(true)
+  axios({
+    method: "POST",
+    url: CONSTANTS.SIGNUP_API,
+    data: info
+  })
+    .then((response) => {
+      setLoading(false)
+      setSignupSuccess(true)
+    })
+    .catch((err) => {
+      setLoading(false);
+      setError(handleErrorMessage(err));
+    })
+}
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,18 +57,33 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const RegisterView = ({ signupState, dispatch }) => {
-  const [registed, setRegisted] = useState(false)
+const RegisterView = () => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+  const [signupRequest, setSignupRequest] = useState(false)
+  const [signupSuccess, setSignupSuccess] = useState(false)
   const classes = useStyles();
   const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+  useEffect(() => {
+    if (!loading && signupRequest) {
+      if (error) {
+        setSignupRequest(false);
+        enqueueSnackbar(error, { variant: 'error' });
+      }
+      if(signupSuccess){
+        setSignupRequest(false);
+        setSignupSuccess(false)
+        enqueueSnackbar("Đăng ký thành công", { variant: 'success' });
+      }
+    }
+  })
   return (
     <Page
       className={classes.root}
       title="Đăng ký"
     >
-      { signupState.signupRequesting? <Loader/>: null }
-      { registed && signupState?.error && signupState?.signupDone ? <Notification message={signupState?.errorMessage.replace(/^"+|"+$/g, '')} notiType="error"/> : null}
-      { registed && !signupState?.error && signupState?.signupDone ? <Notification message={CONSTANTS.MESSAGES["registed_success"]} notiType="success"/> : null}
+      { loading ? <Loader /> : null}
       <Box
         display="flex"
         flexDirection="column"
@@ -58,13 +103,19 @@ const RegisterView = ({ signupState, dispatch }) => {
                 email: Yup.string().email('Email không hợp lệ. VD: email@domail.com').max(255).required('Email không được để trống'),
                 name: Yup.string().max(255),
                 phoneNumber: Yup.string().matches(phoneRegExp, 'Số điện thoại không hợp lệ'),
-                password: Yup.string().max(255).required('Mật khẩu không được để trống'),
+                password: Yup.string().min(6, "Mật khẩu phải có ít nhất 6 ký tự").max(255).required('Mật khẩu không được để trống'),
               })
             }
-            onSubmit={(values, {setSubmitting}) => {
-              setRegisted(true)
-              setSubmitting(signupState.signupRequesting)
-              dispatch(signup(values.email, values.password, values.name, values.phoneNumber))
+            onSubmit={(values, { setSubmitting }) => {
+              setSignupRequest(true)
+              setSubmitting(loading)
+              const info = {
+                email: values.email,
+                password: values.password,
+                name: values.name,
+                phone_number: values.phoneNumber
+              }
+              signup(setSignupSuccess, setLoading, setError, info)
             }}
           >
             {({
@@ -171,11 +222,4 @@ const RegisterView = ({ signupState, dispatch }) => {
 };
 
 
-function mapStateToProps(state) {
-  return {
-      signupState: state.signupState,
-  };
-}
-
-
-export default connect(mapStateToProps)(RegisterView);
+export default RegisterView;
