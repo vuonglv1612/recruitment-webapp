@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -12,6 +12,9 @@ import {
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
+import { connect } from "react-redux";
+import { login } from 'src/redux/actions/auth';
+import Loader from 'src/components/Loader';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,15 +25,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const LoginView = () => {
+const LoginView = ({ authState, dispatch }) => {
   const classes = useStyles();
   const navigate = useNavigate();
-
+  const identities = authState.identities
+  console.log(identities);
+  if(identities?.logged_on){
+    navigate('/', { replace: true });
+  }
   return (
     <Page
       className={classes.root}
       title="Đăng nhập"
     >
+      { authState.loginReqesting? <Loader/>: null }
       <Box
         display="flex"
         flexDirection="column"
@@ -47,8 +55,8 @@ const LoginView = () => {
               email: Yup.string().email('Email không hợp lệ').max(255).required('Email không được để trống'),
               password: Yup.string().max(255).required('Mật khẩu không được để trống')
             })}
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            onSubmit={(values) => {
+              dispatch(login(values.email.trim().toLowerCase(), values.password));
             }}
           >
             {({
@@ -135,4 +143,12 @@ const LoginView = () => {
   );
 };
 
-export default LoginView;
+
+function mapStateToProps(state) {
+  return {
+      authState: state.authState,
+  };
+}
+
+
+export default connect(mapStateToProps)(LoginView);

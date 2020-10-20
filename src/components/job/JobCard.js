@@ -55,14 +55,14 @@ export default function JobCard({ job }) {
       
         <Typography variant="h5" component="h2">💲 {job.salary}
         </Typography>
-        <Typography className={classes.pos} color="textSecondary"><LinesEllipsis text={"🏠 " + job.address} maxLine='1' ellipsis='...' trimRight basedOn='letters'/>
+        <Typography className={classes.pos} color="textSecondary" component="div"><LinesEllipsis text={"🏠 " + job.address} maxLine='1' ellipsis='...' trimRight basedOn='letters'/>
         </Typography>
-        <Typography className={classes.pos} variant="body2" component="p">
+        <Typography className={classes.pos} variant="body2" component="div">
         <LinesEllipsis text={removeMd(job.description)} maxLine='2' ellipsis='...' trimRight basedOn='letters'/></Typography>
         <Box component="span">
           {
             job.tags.map((tag) => {
-              return <Chip className={classes.tag} style={{marginLeft: 5}} label={tag}/>
+              return <Chip key={tag} className={classes.tag} style={{marginLeft: 5}} label={tag}/>
             })
           }
         </Box>

@@ -95,7 +95,6 @@ const Home = () => {
         <Grid
           container
           spacing={3}
-          md={12}
         >
 
           <Grid
@@ -107,7 +106,7 @@ const Home = () => {
               xs={12}
             >
               <Typography variant="h3" className={classes.jobCounter}>
-              <Typography variant="h3" component="span" style={{color: "red", fontWeight: "bold"}}>{numOfJobs}</Typography> việc làm IT tại Việt Nam cho bạn
+                <Typography variant="h3" component="span" style={{ color: "red", fontWeight: "bold" }}>{numOfJobs}</Typography> việc làm IT tại Việt Nam cho bạn
             </Typography>
             </Grid>
             <Grid
@@ -115,11 +114,11 @@ const Home = () => {
               xs={12}
             >
               {data.jobs.map((data) => {
-                return <Grid
+                return <Grid key={data.id}
                   item
                   xs={12}
                   className={classes.jobCard}
-                ><JobCard job={data}/></Grid>
+                ><JobCard job={data} /></Grid>
               })}
             </Grid>
           </Grid>
