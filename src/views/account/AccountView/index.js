@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Container,
   Grid,
@@ -7,7 +7,8 @@ import {
 import Page from 'src/components/Page';
 import Profile from './Profile';
 import ProfileDetails from './ProfileDetails';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { useNavigate} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +21,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Account = ({ authState }) => {
   const classes = useStyles();
-
+  const navigation = useNavigate()
+  useEffect(() => {
+    if(authState?.identities?.logged_on){
+      navigation("/", { replace: true })
+    }
+  })
   return (
     <Page
       className={classes.root}

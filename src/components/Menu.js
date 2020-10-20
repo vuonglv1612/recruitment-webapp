@@ -4,7 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import IconButton from '@material-ui/core/IconButton';
 import { Link } from "react-router-dom";
+import { logoutAction } from 'src/redux/actions/auth'
 import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -45,19 +48,22 @@ function PublicMenu() {
     );
 }
 
-function LoggedOnMenu() {
+function LoggedOnMenu({ dispatch }) {
     const classes = useStyles();
     return (
         <>
             <Typography variant="h5" className={classes.menuButton}>
                 <Link className={classes.menuLink} to="/account">Cá nhân</Link>
             </Typography>
+            <IconButton color="inherit" aria-label="delete" onClick={() => dispatch(logoutAction())}>
+                <ExitToAppIcon />
+            </IconButton>
         </>
     );
 }
 
 
-function MainMenu({ authState }) {
+function MainMenu({ authState, dispatch }) {
     const classes = useStyles();
     const classnames = clsx(classes.root, classes.lightColor)
     const identities = authState.identities
@@ -70,8 +76,8 @@ function MainMenu({ authState }) {
                             EPU Jobs
                     </Link>
                     </Typography>
-                {identities.logged_on ? null: <PublicMenu />}
-                {identities.logged_on ? <LoggedOnMenu /> : null}
+                    {identities.logged_on ? null : <PublicMenu />}
+                    {identities.logged_on ? <LoggedOnMenu dispatch={dispatch}/> : null}
                 </Toolbar>
             </AppBar>
         </div>
