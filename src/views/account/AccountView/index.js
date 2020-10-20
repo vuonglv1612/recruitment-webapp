@@ -7,6 +7,7 @@ import {
 import Page from 'src/components/Page';
 import Profile from './Profile';
 import ProfileDetails from './ProfileDetails';
+import { connect } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,13 +18,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Account = () => {
+const Account = ({ authState }) => {
   const classes = useStyles();
 
   return (
     <Page
       className={classes.root}
-      title="Account"
+      title="Cá nhân"
     >
       <Container maxWidth="lg">
         <Grid
@@ -36,7 +37,7 @@ const Account = () => {
             md={6}
             xs={12}
           >
-            <Profile />
+            <Profile user={authState.identities} />
           </Grid>
           <Grid
             item
@@ -44,7 +45,7 @@ const Account = () => {
             md={6}
             xs={12}
           >
-            <ProfileDetails />
+            <ProfileDetails user={authState.identities}/>
           </Grid>
         </Grid>
       </Container>
@@ -52,4 +53,12 @@ const Account = () => {
   );
 };
 
-export default Account;
+
+function mapStateToProps(state) {
+  return {
+      authState: state.authState,
+  };
+}
+
+
+export default connect(mapStateToProps)(Account);

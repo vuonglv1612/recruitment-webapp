@@ -16,14 +16,8 @@ const useStyles = makeStyles(() => ({
   root: {}
 }));
 
-const ProfileDetails = ({ className, ...rest }) => {
+const ProfileDetails = ({ user, className, ...rest }) => {
   const classes = useStyles();
-  const [values] = useState({
-    name: 'Lê Văn Vương',
-    email: 'it.vuonglv@gmail.com',
-    phone: '',
-  });
-
 
   return (
     <form
@@ -51,7 +45,7 @@ const ProfileDetails = ({ className, ...rest }) => {
                 fullWidth
                 label="Họ và tên"
                 name="name"
-                value={values.name}
+                value={user.name}
                 variant="outlined"
               />
             </Grid>
@@ -64,7 +58,7 @@ const ProfileDetails = ({ className, ...rest }) => {
                 fullWidth
                 label="Email"
                 name="email"
-                value={values.email}
+                value={user.email}
                 variant="outlined"
               />
             </Grid>
@@ -77,7 +71,7 @@ const ProfileDetails = ({ className, ...rest }) => {
                 fullWidth
                 label="Số điện thoại"
                 name="phone"
-                value={values.phone}
+                value={user.phone_number}
                 variant="outlined"
               />
             </Grid>
