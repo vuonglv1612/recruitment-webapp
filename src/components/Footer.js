@@ -17,8 +17,9 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   footer: {
-    marginTop: 'auto',
-    minHeight: '10vh',
+    height: 100,
+    position: "absolute",
+    bottom: 0,
     width: '100%',
     backgroundColor: theme.palette.primary.main
   },
