@@ -36,9 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Home = () => {
-  console.log(CONSTANTS.GET_ALL_JOB_API);
   const classes = useStyles();
-  const numOfJobs = 100;
   const [response, setResponse] = useState();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -49,7 +47,6 @@ const Home = () => {
     })
       .then((response) => {
         setResponse(response?.data)
-        console.log(response.data);
         setLoading(false)
       })
       .catch((err) => {

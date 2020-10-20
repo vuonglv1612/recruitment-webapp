@@ -101,7 +101,7 @@ const RegisterView = () => {
             validationSchema={
               Yup.object().shape({
                 email: Yup.string().email('Email không hợp lệ. VD: email@domail.com').max(255).required('Email không được để trống'),
-                name: Yup.string().max(255),
+                name: Yup.string().max(255).required('Họ và tên không được để trống'),
                 phoneNumber: Yup.string().matches(phoneRegExp, 'Số điện thoại không hợp lệ'),
                 password: Yup.string().min(6, "Mật khẩu phải có ít nhất 6 ký tự").max(255).required('Mật khẩu không được để trống'),
               })
