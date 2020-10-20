@@ -110,7 +110,6 @@ const useStyles = makeStyles((theme) => ({
 export default function JobDetail(props) {
   const classes = useStyles();
   var { slug } = useParams()
-  console.log("SLUG:" + slug)
   const job = findJobBySlug(slug)
   return (
     <Container className={classes.root}>

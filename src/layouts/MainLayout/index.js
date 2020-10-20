@@ -5,6 +5,12 @@ import MainFooter from '../../components/Footer';
 import MainMenu from '../../components/Menu'
 
 const useStyles = makeStyles((theme) => ({
+  rootContainer: {
+    minHeight: "100vh",
+    overflow: "hidden",
+    position: "relative",
+    paddingBottom: 100
+  },
   root: {
     backgroundColor: theme.palette.background.default,
     display: 'flex',
@@ -26,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flex: '1 1 auto',
     height: '100%',
-    overflow: 'auto'
+    // overflow: 'auto'
   }
 }));
 
@@ -34,7 +40,7 @@ const MainLayout = () => {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.rootContainer}>
       <MainMenu />
       <div className={classes.root}>
         <div className={classes.wrapper}>
