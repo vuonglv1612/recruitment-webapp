@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link as RouterLink, useNavigate, Link} from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
   Box,
   Button,
   Container,
-  Link,
   TextField,
   Typography,
   makeStyles
@@ -30,9 +29,11 @@ const LoginView = ({ authState, dispatch }) => {
   const navigate = useNavigate();
   const identities = authState.identities
   console.log(identities);
-  if(identities?.logged_on){
-    navigate('/', { replace: true });
-  }
+  useEffect(() => {
+    if(identities?.logged_on){
+      navigate('/', { replace: true });
+    }
+  })
   return (
     <Page
       className={classes.root}
@@ -55,7 +56,8 @@ const LoginView = ({ authState, dispatch }) => {
               email: Yup.string().email('Email không hợp lệ').max(255).required('Email không được để trống'),
               password: Yup.string().max(255).required('Mật khẩu không được để trống')
             })}
-            onSubmit={(values) => {
+            onSubmit={(values, {setSubmitting}) => {
+              setSubmitting(identities.logged)
               dispatch(login(values.email.trim().toLowerCase(), values.password));
             }}
           >
