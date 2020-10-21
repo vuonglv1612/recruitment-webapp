@@ -58,7 +58,7 @@ export default function JobCard({ job }) {
         <Typography className={classes.pos} color="textSecondary" component="div"><LinesEllipsis text={"🏠 " + job.address} maxLine='1' ellipsis='...' trimRight basedOn='letters'/>
         </Typography>
         <Typography className={classes.pos} variant="body2" component="div">
-        <LinesEllipsis text={removeMd(job.description)} maxLine='2' ellipsis='...' trimRight basedOn='letters'/></Typography>
+        <LinesEllipsis text={removeMd(job.brief)} maxLine='2' ellipsis='...' trimRight basedOn='letters'/></Typography>
         <Box component="span">
           {
             job.tags.map((tag) => {
