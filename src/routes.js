@@ -8,6 +8,8 @@ import RegisterView from 'src/views/auth/RegisterView';
 import Home from 'src/views/home';
 import JobDetail from 'src/components/job/JobDetail';
 import UpgradeToEmployerView from 'src/views/upgrade/UpgradeToEmployer';
+import UpgradeToEmployeeView from 'src/views/upgrade/UpgradeToEmployee';
+
 
 const routes = [
   {
@@ -18,7 +20,7 @@ const routes = [
       { path: 'login', element: <LoginView /> },
       { path: 'register', element: <RegisterView /> },
       { path: '/upgrade/employer', element: <UpgradeToEmployerView /> },
-      { path: '/upgrade/employee', element: <UpgradeToEmployerView /> },
+      { path: '/upgrade/employee', element: <UpgradeToEmployeeView /> },
       { path: '404', element: <NotFoundView /> },
       { path: '/jobs/:slug', element: <JobDetail /> },
       { path: '/', element: <Home /> },

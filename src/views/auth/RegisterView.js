@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { Formik } from 'formik';
@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RegisterView = () => {
+  const navigate = useNavigate();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -75,6 +76,7 @@ const RegisterView = () => {
         setSignupRequest(false);
         setSignupSuccess(false)
         enqueueSnackbar("Đăng ký thành công", { variant: 'success' });
+        navigate("/login", {replace: true})
       }
     }
   }, [signupRequest, signupSuccess, loading])
