@@ -140,7 +140,7 @@ function JobDetail({ authState }) {
                 <ReactMarkdown>{job?.description}</ReactMarkdown></Typography>
             </CardContent>
             { userType !== "employer" ? <CardActions>
-              <Button className={classes.applyButton} variant="contained" size="small"><Link className={classes.applyButtonCaption} to={"/"} >Ứng tuyển</Link></Button>
+              <Button className={classes.applyButton} variant="contained" size="small"><Link className={classes.applyButtonCaption} to={"/newapply/" + job?.id} >Ứng tuyển</Link></Button>
             </CardActions> : null }
             { userType === "employer" && job?.employer_id == identities.employer_id ? <CardActions>
               <Button variant="contained" size="small"><Link to={"/jobapplies/" + job?.id} >Danh sách ứng tuyển</Link></Button>

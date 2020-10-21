@@ -12,6 +12,7 @@ import UpgradeToEmployeeView from 'src/views/upgrade/UpgradeToEmployee';
 import AddJobView from 'src/views/jobs/AddJob';
 import RecruitingJobsNew from 'src/views/recruiting_jobs/RecruitingJobsView';
 import JobAppliesView from 'src/views/employer_applied/EmployerJobsAppliedView';
+import ApplyJobView from 'src/views/add_apply/ApplyJobView';
 
 
 const routes = [
@@ -25,6 +26,7 @@ const routes = [
       { path: '/upgrade/employer', element: <UpgradeToEmployerView /> },
       { path: '/upgrade/employee', element: <UpgradeToEmployeeView /> },
       { path: '/newjob', element: <AddJobView /> },
+      { path: '/newapply/:job_id', element: <ApplyJobView /> },
       { path: '/recruiting', element: <RecruitingJobsNew /> },
       { path: '404', element: <NotFoundView /> },
       { path: '/jobs/:slug', element: <JobDetail /> },

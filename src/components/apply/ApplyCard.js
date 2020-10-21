@@ -4,11 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import LinesEllipsis from 'react-lines-ellipsis'
-import { Link } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({

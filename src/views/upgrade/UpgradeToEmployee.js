@@ -108,12 +108,12 @@ const UpgradeToEmployeeView = ({ authState, dispatch }) => {
             >
                 <Container maxWidth="sm">
                     <Box mb={3}>
-                        <Typography
+                        {/* <Typography
                             color="textPrimary"
                             variant="h2"
                         >
                             Trở thành người tìm việc
-                  </Typography>
+                  </Typography> */}
                     </Box>
                     <Box my={2}>
                         <Button
@@ -125,7 +125,7 @@ const UpgradeToEmployeeView = ({ authState, dispatch }) => {
                             variant="contained"
                             onClick={() => {setUpgradeRequest(true); upgrade(setUpgradeSuccess, setLoading, setError, setStatusCode, identities)}}
                         >
-                            Nâng cấp
+                            Trở thành người tìm việc
                   </Button>
                     </Box>
 
