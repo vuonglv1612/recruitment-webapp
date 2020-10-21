@@ -52,7 +52,7 @@ export default function ApplyCard({ apply }) {
     return (
         <Card className={classes.root}>
             <CardContent>
-                <Typography className={classes.pos} variant="body2" component="div">Ngày tạo: {apply?.created_at}</Typography>
+                <Typography style={{color: "#FF5722"}} className={classes.pos} variant="body2" component="div">Ngày tạo: {apply?.created_at}</Typography>
                 <Typography className={classes.pos} color="textSecondary" component="div">Mô tả: {apply?.description}</Typography>
                 <Button variant="contained" color="secondary" size="small" onClick={() => openTab(apply?.cv)}>Xem CV</Button>
             </CardContent>
