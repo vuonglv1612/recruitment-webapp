@@ -1,15 +1,15 @@
 # RECRUITMENT SYSTEM WEBAPP
 
 ## REQUIRE
-1. `Nodejs 12+`, `NPM`
-2. `React 16.8.6`
+1. `docker`
+2. `docker-compose`
 
-## INSTALL
-`npm install`  
+## BUILD
+`sudo docker build -t recruitment-webapp:v1 .`  
 
 
 ## START
-`npm run start`  
+`sudo docker-compose up -d`  
 
 #
 `author: vuonglv`  
