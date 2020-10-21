@@ -42,8 +42,8 @@ function signup(setSignupSuccess, setLoading, setError, info) {
       setSignupSuccess(true)
     })
     .catch((err) => {
-      setLoading(false);
       setError(handleErrorMessage(err));
+      setLoading(false);
     })
 }
 
@@ -77,7 +77,7 @@ const RegisterView = () => {
         enqueueSnackbar("Đăng ký thành công", { variant: 'success' });
       }
     }
-  })
+  }, [signupRequest, signupSuccess, loading])
   return (
     <Page
       className={classes.root}
@@ -168,10 +168,10 @@ const RegisterView = () => {
                     helperText={touched.name && errors.name}
                     label="Họ tên"
                     margin="normal"
-                    name="firstName"
+                    name="name"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    value={values.firstName}
+                    value={values.name}
                     variant="outlined"
                   />
                   <TextField

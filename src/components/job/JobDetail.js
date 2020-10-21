@@ -85,7 +85,7 @@ function JobDetail({ authState }) {
         setLoading(false)
       })
     }).catch((err) => {setError(err.response.data.detail); setLoading(false);})
-  }, []);
+  }, [slug]);
 
   return (<>
     {loading ? <Loader /> : null}
@@ -139,7 +139,7 @@ function JobDetail({ authState }) {
               <Typography className={classes.description} variant="body2" component="p">
                 <ReactMarkdown>{job?.description}</ReactMarkdown></Typography>
             </CardContent>
-            { userType != "employer" ? <CardActions>
+            { userType !== "employer" ? <CardActions>
               <Button className={classes.applyButton} variant="contained" size="small"><Link className={classes.applyButtonCaption} to={"/"} >Ứng tuyển</Link></Button>
             </CardActions> : null }
           </Card>
