@@ -1,103 +1,115 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
+import React, { useEffect, useState } from 'react';
 import {
-  Avatar,
-  Box,
-  Card,
-  CardContent,
+  Container,
+  Grid,
+  makeStyles,
   Typography,
-  makeStyles
 } from '@material-ui/core';
+import Page from 'src/components/Page';
+import JobCard from '../../components/job/JobCard';
+import axios from 'axios';
+import * as CONSTANTS from 'src/constants/recruitingjob';
+import Loader from 'src/components/Loader';
+import {connect} from 'react-redux';
 
-data = {
-    jobs: [
-      {
-        title: "05 Java Dev (HTML, JavaScript)",
-        salary: 1500,
-        address: "106 Hoang Quoc Viet, Cau Giay, Ha Noi",
-        description: "Tham gia phát triển các ứng dụng trên nền tảng Java cho khách hàng Nhật Bản. Tham gia đầy đủ các công đoạn của dự án từ tìm hiểu yêu cầu, phân tích, thiết kế, lập trình kiểm thử hoặc nghiên cứu công nghệ. Lập kế hoạch thực hiện công việc cá nhân/nhóm",
-        is_open: true,
-        tags: [
-          "JavaScript ",
-          "Java"
-        ],
-        employer_id: 2,
-        id: 1
-      },
-      {
-        title: "DevOps Engineer - Attractive Salary ",
-        salary: 1000,
-        address: "15 Pham Hung, Nam Tu Liem, Ha Noi ",
-        description: "Thực hiện các hoạt động liên quan tới Devops (set up CI, CD…) để build và deploy các phiên bản phần mềm lên production và chịu trách nhiệm trong suốt quá trình build, deploy và tìm hiểu và khắc phục sự cố nếu có.",
-        is_open: true,
-        tags: [
-          "Linux",
-          "AWS",
-          "DevOps"
-        ],
-        employer_id: 2,
-        id: 2
-      },
-      {
-        title: "PHP/ Nodejs Backend Developer ",
-        salary: 1000,
-        address: "78 nguyễn hoàng, Nam Tu Liem, Ha Noi ",
-        description: "Tham gia vào các dự án nước ngoài phần Backend và api. Làm việc theo sự phân công của Trưởng nhóm/Quản lý dự án, phối hợp giữa các nhóm để phát triển sản phẩm. Training các kiến thức mà mình đã làm hoặc đã tìm hiểu cho các thành viên khác trong team khi được yêu cầu.",
-        is_open: true,
-        tags: [
-          "NodeJS",
-          "PHP",
-          "MySQL"
-        ],
-        employer_id: 2,
-        id: 3
-      },
-    ],
-    total: 3
-  }
 
-const useStyles = makeStyles(() => ({
-  root: {},
-  avatar: {
-    height: 100,
-    width: 100
+const useStyles = makeStyles((theme) => ({
+  root: {
+    // backgroundColor: theme.palette.background.dark,
+    minHeight: 500,
+    paddingBottom: theme.spacing(3),
+    // paddingTop: theme.spacing(3),
+  },
+  content: {
+    backgroundColor: "#FFF",
+    borderRadius: "0px 0px 5px 5px",
+    padding: theme.spacing(2)
+  },
+  jobCounter: {
+    color: theme.palette.text.secondary,
+    textAlign: "left",
+    fontWeight: "bold",
+    marginBottom: 10
+  },
+  jobCard: {
+    padding: 5,
   }
 }));
 
-const RecruitingJobList = ({ className, ...rest }) => {
+const RecruitingJobsNew = ({ authState }) => {
   const classes = useStyles();
-
+  const [response, setResponse] = useState();
+  const [loading, setLoading] = useState(false);
+  const identities = authState.identities
+  const api = CONSTANTS.get_own_jobs_api(identities?.employer_id)
+  console.log(api)
+  useEffect(() => {
+    setLoading(true)
+    axios({
+      method: "GET",
+      url: api,
+      headers: {
+        Authorization: 'Bearer ' + identities?.access_token
+      }
+    })
+      .then((response) => {
+        setResponse(response?.data)
+        setLoading(false)
+      })
+      .catch((err) => {
+        setLoading(false)
+        console.log(err)
+      })
+  }, []);
   return (
-    <Card
-      className={clsx(classes.root, className)}
-      {...rest}
+    <Page
+      className={classes.root}
+      title="Trang chủ"
     >
-      <CardContent>
-        <Box
-          alignItems="center"
-          display="flex"
-          flexDirection="column"
+      {loading ? <Loader /> : null}
+      <Container maxWidth="lg" className={classes.content}>
+        <Grid
+          container
+          spacing={3}
         >
-          <Avatar
-            className={classes.avatar}
-            src={user.avatar}
-          />
-          <Typography
-            color="textPrimary"
-            gutterBottom
-            variant="h3"
+
+          <Grid
+            item
+            xs={12}
           >
-            {user.name}
-          </Typography>
-        </Box>
-      </CardContent>
-    </Card>
+            <Grid
+              item
+              xs={12}
+            >
+              {response?.total ? <Typography variant="h3" className={classes.jobCounter}>
+              Bạn đang tuyển <Typography variant="h3" component="span" style={{ color: "red", fontWeight: "bold" }}>{response?.total}</Typography> công việc
+            </Typography> : null }
+            </Grid>
+            <Grid
+              item
+              xs={12}
+            >
+              {response?.jobs.map((data) => {
+                return <Grid key={data.id}
+                  item
+                  xs={12}
+                  className={classes.jobCard}
+                ><JobCard job={data} /></Grid>
+              })}
+            </Grid>
+          </Grid>
+        </Grid>
+      </Container>
+    </Page>
   );
 };
 
-Profile.propTypes = {
-  className: PropTypes.string
-};
 
-export default RecruitingJobList;
+function mapStateToProps(state) {
+  return {
+      authState: state.authState,
+  };
+}
+
+
+export default connect(mapStateToProps)(RecruitingJobsNew);

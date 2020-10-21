@@ -123,10 +123,10 @@ const AddJobView = ({ authState, dispatch }) => {
                         }}
                         validationSchema={
                             Yup.object().shape({
-                                title: Yup.string().min(3, "Tên công việc phải nhiều hơn 3 ký tự").max(255).required('Tên công việc không được để trống'),
+                                title: Yup.string().min(3, "Tên công việc phải nhiều hơn 3 ký tự").required('Tên công việc không được để trống'),
                                 address: Yup.string().min(3, "Địa chỉ phải nhiều hơn 3 ký tự").required('Địa chỉ không được để trống'),
                                 salary: Yup.number().required('Lương không được để trống'),
-                                brief: Yup.string().min(3, "Tóm tắt công việc phải nhiều hơn 3 ký tự").max(100).required('Tóm tắt công việc không được để trống'),
+                                brief: Yup.string().min(3, "Tóm tắt công việc phải nhiều hơn 3 ký tự").required('Tóm tắt công việc không được để trống'),
                                 tags: Yup.string().required('Các thẻ không được để trống').matches(tagRegex, 'Danh sách các thẻ không hợp lệ. Các thẻ là Tiếng Việt không dấu và ngăn cách nhau bởi dấu phẩy'),
                             })
                         }

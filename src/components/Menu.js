@@ -86,7 +86,12 @@ function EmployerMenu({ identities }) {
                 color="inherit"
                 startIcon={<FiberNewIcon />}
                 onClick={() => {navigation("/newjob")}}
-            >Đăng tuyển</Button>
+            >Tuyển thêm</Button>
+            <Button
+                color="inherit"
+                startIcon={<FiberNewIcon />}
+                onClick={() => {navigation("/recruiting")}}
+            >Đang tuyển</Button>
         </>
     );
 }
