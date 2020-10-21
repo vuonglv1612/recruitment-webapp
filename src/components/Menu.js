@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import { Link, useNavigate } from "react-router-dom";
 import { logoutAction } from 'src/redux/actions/auth'
 import { connect } from "react-redux";
+import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         flexGrow: 1,
+        fontWeight: "bold"
     },
     logoLink: {
         color: theme.palette.text.logo
@@ -104,16 +106,19 @@ function MainMenu({ authState, dispatch }) {
     return (
         <div className={classnames}>
             <AppBar position="fixed">
+                    <Container maxWidth="lg">
                 <Toolbar>
                     <Typography variant="h3" className={classes.title}>
                         <Link className={classes.logoLink} to="/">
-                            EPU Jobs
+                            VUONGLV JOBS
                     </Link>
                     </Typography>
                     {identities.logged_on && identities.user_type === "employer" ? <EmployerMenu identities={authState.identities} /> : null}
                     {identities.logged_on ? null : <PublicMenu />}
                     {identities.logged_on ? <LoggedOnMenu identities={authState.identities} dispatch={dispatch} /> : null}
+                    
                 </Toolbar>
+                    </Container>
             </AppBar>
         </div>
     );

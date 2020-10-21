@@ -2,26 +2,37 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Box } from '@material-ui/core';
+
 
 function Copyright() {
   return (
-    <Box color="white" style={{ margin: 10 }} clone>
+   <>
       <Typography>
-      Copyright © Lê Văn Vương - 18810310326
+      Copyright © Lê Văn Vương - D13CNPM4 - 18810310326
       </Typography>
-    </Box>
+      <Typography>
+      Font-end: ReactJS
+      </Typography>
+      <Typography>
+      Back-end: Python(FastAPI)
+      </Typography>
+      <Typography>
+      Database: PostgreSQL
+      </Typography>
+    </>
 
   );
 }
 
 const useStyles = makeStyles((theme) => ({
   footer: {
-    height: 100,
+    minHeight: 100,
     position: "absolute",
     bottom: 0,
     width: '100%',
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.main,
+    color: "white",
+    padding: 10
   },
 }));
 

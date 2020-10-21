@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3)
+  },
+  signupLink: {
+    color: theme.palette.text.vip
   }
 }));
 
@@ -177,6 +180,7 @@ const LoginView = ({ authState, dispatch }) => {
                       component={RouterLink}
                       to="/register"
                       variant="h6"
+                      className={classes.signupLink}
                     >
                       Đăng ký ngay
                   </Link>

@@ -21,7 +21,8 @@ const theme = createMuiTheme({
       highlight: colors.orange[500],
       light: colors.grey[200],
       primary: colors.blueGrey[900],
-      secondary: colors.blueGrey[600]
+      secondary: colors.blueGrey[600],
+      vip: colors.teal[700]
     }
   },
   shadows,
