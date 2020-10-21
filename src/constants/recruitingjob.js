@@ -7,3 +7,7 @@ export const status_message_mapping = {
 export const get_own_jobs_api = (employer_id) => {
     return "http://recruitment.api.pythonistavn.com/api/v1/employers/" + employer_id + "/jobs"
 }
+
+export const job_applied_api = (job_id) => {
+    return "http://recruitment.api.pythonistavn.com/api/v1/jobs/" + job_id + "/applies"
+}
